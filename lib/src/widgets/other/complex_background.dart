@@ -5,23 +5,8 @@ import 'package:saturne_pro_core/src/helpers/helpers.dart';
 
 import '../../assets/assets.dart';
 
-class ComplexBackground extends StatefulWidget {
+class ComplexBackground extends StatelessWidget {
   const ComplexBackground({super.key});
-
-  @override
-  State<ComplexBackground> createState() => _ComplexBackgroundState();
-}
-
-class _ComplexBackgroundState extends State<ComplexBackground> {
-  @override
-  void initState() {
-    super.initState();
-    // Precache the pattern image
-    precacheImage(
-      AssetImage(SaturneProImages.pattern, package: packageName),
-      context,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
