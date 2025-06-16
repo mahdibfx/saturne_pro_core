@@ -52,7 +52,10 @@ Add the package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  saturne_pro_core: ^0.0.1
+  saturne_pro_core:
+    git:
+      url: https://github.com/SmartVision-Global/saturne_pro_core
+      ref: main
 ```
 
 ## Usage
