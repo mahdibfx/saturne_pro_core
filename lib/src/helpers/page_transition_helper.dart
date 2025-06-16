@@ -12,7 +12,7 @@ class CustomRouteTransition {
     return SharedAxisTransition(
       animation: animation,
       secondaryAnimation: secondaryAnimation,
-      transitionType: SharedAxisTransitionType.scaled,
+      transitionType: SharedAxisTransitionType.horizontal,
       child: child,
     );
   }
