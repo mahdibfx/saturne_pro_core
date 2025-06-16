@@ -23,18 +23,18 @@ import 'package:saturne_pro_core/src/widgets/base/base.dart';
 class UploadFileContainer extends StatelessWidget {
   /// Callback function triggered when the "Select from files" button is tapped.
   final Function() onSelectFromLocalFilesTapped;
-  
+
   /// Callback function triggered when the "Take a picture" button is tapped.
   final Function() onTakeAPicTapped;
-  
+
   /// Optional text to display as information about allowed file types.
   /// Defaults to "extensions de fichiers autorisées (PDF, JPEG, JPG, PNG)" if not provided.
   final String? label;
-  
+
   /// Optional text to display on the "Select from files" button.
   /// Defaults to "Sélectionner parmi les fichiers" if not provided.
   final String? selectFromLocalFilesLabel;
-  
+
   /// Optional text to display on the "Take a picture" button.
   /// Defaults to "Prenez une photo" if not provided.
   final String? takeAPicLabel;

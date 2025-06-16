@@ -29,7 +29,7 @@ class SaturneProDesignSystem {
 
   /// Theme data for the light mode of the SaturneProCore application.
   static final ThemeData lightMode = ThemeData(
-    scaffoldBackgroundColor: ColorsData.kcShade50,
+    scaffoldBackgroundColor: Colors.white,
     extensions: [
       AppDesignSystem(
         colors: const ColorStyles(
