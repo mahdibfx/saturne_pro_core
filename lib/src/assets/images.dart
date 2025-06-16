@@ -28,4 +28,6 @@ class SaturneProImages {
 
   static const String uploadFileIllustration =
       '$_basePath/upload_file_illustration.png';
+
+  static const String pattern = '$_basePath/pattern.jpg';
 }
