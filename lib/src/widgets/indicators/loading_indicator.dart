@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:saturne_pro_core/src/helpers/design_system_helper_methodes.dart';
 
 class LoadingIndicator extends StatefulWidget {
-  const LoadingIndicator({super.key});
+  final Color? color;
+
+  const LoadingIndicator({super.key, this.color});
 
   @override
   LoadingIndicatorState createState() => LoadingIndicatorState();
@@ -52,7 +54,7 @@ class LoadingIndicatorState extends State<LoadingIndicator>
               child: Container(
                 width: 1.75 * ds.spacing.xs,
                 height: 1.75 * ds.spacing.xs,
-                color: Colors.teal,
+                color: widget.color ?? ds.colors.primary.shade500,
               ),
             );
           },
