@@ -147,6 +147,7 @@ class Button extends StatelessWidget {
                         child: CustomText(
                           text: label,
                           style: CustomTextStyle.bodyM,
+                          fontWeight: FontWeight.w500,
                           color: labelColor,
                         ),
                       ),
