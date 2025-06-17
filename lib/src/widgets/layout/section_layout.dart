@@ -1,4 +1,3 @@
-import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:saturne_pro_core/src/helpers/helpers.dart';
 
@@ -123,98 +122,45 @@ class SectionLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ds = context.designSystem;
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 600),
-      curve: Curves.fastLinearToSlowEaseIn,
-      height: height ?? 90.dh,
-      child: CustomScrollView(
-        slivers: [
-          CustomAppBar(
-            onBackTapped: onBackTapped,
-            backgroundColor: Colors.white,
-            height: useSafeArea ? null : ds.spacing.xl * 2.5,
-            useSafeArea: useSafeArea,
-            trailingWidget: appBarTrailing,
-            child: appBarChild,
-          ),
-          SliverPadding(
-            padding: EdgeInsets.symmetric(horizontal: ds.spacing.l),
-            sliver: SliverToBoxAdapter(
-              child: PageTransitionSwitcher(
-                duration: const Duration(milliseconds: 300),
-                reverse: true,
-                transitionBuilder: (
-                  Widget child,
-                  Animation<double> animation,
-                  Animation<double> secondaryAnimation,
-                ) {
-                  return SharedAxisTransition(
-                    animation: animation,
-                    secondaryAnimation: secondaryAnimation,
-                    transitionType: SharedAxisTransitionType.horizontal,
-                    fillColor: Colors.white,
-                    child: child,
-                  );
-                },
+    return RepaintBoundary(
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 600),
+        curve: Curves.fastLinearToSlowEaseIn,
+        height: height ?? 90.dh,
+        child: CustomScrollView(
+          slivers: [
+            CustomAppBar(
+              onBackTapped: onBackTapped,
+              backgroundColor: Colors.white,
+              height: useSafeArea ? null : ds.spacing.xl * 2.5,
+              useSafeArea: useSafeArea,
+              trailingWidget: appBarTrailing,
+              child: appBarChild,
+            ),
+            SliverPadding(
+              padding: EdgeInsets.symmetric(horizontal: ds.spacing.l),
+              sliver: SliverToBoxAdapter(
                 child: SectionHeader(
-                  key: ValueKey('${titleLines.join()}-$description'),
                   titleLines: titleLines,
                   description: description,
                 ),
               ),
             ),
-          ),
-          SliverPadding(
-            padding: EdgeInsets.symmetric(
-              horizontal: ds.spacing.l,
-              vertical: 1.5 * ds.spacing.l,
-            ),
-            sliver: SliverToBoxAdapter(
-              child: PageTransitionSwitcher(
-                duration: const Duration(milliseconds: 300),
-                reverse: true,
-                transitionBuilder: (
-                  Widget child,
-                  Animation<double> animation,
-                  Animation<double> secondaryAnimation,
-                ) {
-                  return SharedAxisTransition(
-                    animation: animation,
-                    secondaryAnimation: secondaryAnimation,
-                    transitionType: SharedAxisTransitionType.horizontal,
-                    fillColor: Colors.white,
-                    child: child,
-                  );
-                },
-                child: content,
-              ),
-            ),
-          ),
-          if (mainButtonTitle != null)
             SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: ds.spacing.l),
-              sliver: SliverFillRemaining(
-                hasScrollBody: false,
-                child: SafeArea(
-                  top: false,
-                  child: PageTransitionSwitcher(
-                    duration: const Duration(milliseconds: 300),
-                    reverse: true,
-                    transitionBuilder: (
-                      Widget child,
-                      Animation<double> animation,
-                      Animation<double> secondaryAnimation,
-                    ) {
-                      return SharedAxisTransition(
-                        animation: animation,
-                        secondaryAnimation: secondaryAnimation,
-                        transitionType: SharedAxisTransitionType.horizontal,
-                        fillColor: Colors.white,
-                        child: child,
-                      );
-                    },
+              padding: EdgeInsets.symmetric(
+                horizontal: ds.spacing.l,
+                vertical: 1.5 * ds.spacing.l,
+              ),
+              sliver: SliverToBoxAdapter(child: content),
+            ),
+            if (mainButtonTitle != null)
+              SliverPadding(
+                padding: EdgeInsets.symmetric(horizontal: ds.spacing.l),
+                sliver: SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: SafeArea(
+                    top: false,
                     child: Column(
-                      key: ValueKey(mainButtonTitle),
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.end,
                       spacing: ds.spacing.l,
@@ -277,8 +223,8 @@ class SectionLayout extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
-        ],
+          ],
+        ),
       ),
     );
   }
