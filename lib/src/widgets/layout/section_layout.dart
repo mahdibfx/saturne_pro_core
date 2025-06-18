@@ -22,6 +22,7 @@ class SectionLayout extends StatelessWidget {
   final VoidCallback? onBackTapped;
   final double? height;
   final bool showAppBar;
+  final bool centerHeader;
 
   const SectionLayout._({
     super.key,
@@ -41,6 +42,7 @@ class SectionLayout extends StatelessWidget {
     this.actionButtonsLayout = ActionButtonsLayout.row,
     this.height,
     this.showAppBar = true,
+    this.centerHeader = false,
   }) : assert(
          showAppBar ||
              (appBarTrailing == null &&
@@ -68,6 +70,7 @@ class SectionLayout extends StatelessWidget {
     ActionButtonsLayout actionButtonsLayout = ActionButtonsLayout.row,
     double? height,
     bool showAppBar = true,
+    bool centerHeader = false,
   }) {
     assert(mainButtonTitle.isNotEmpty, 'Main button title cannot be empty');
     if (secondaryButtonTitle != null) {
@@ -109,6 +112,7 @@ class SectionLayout extends StatelessWidget {
       actionButtonsLayout: actionButtonsLayout,
       height: height,
       showAppBar: showAppBar,
+      centerHeader: centerHeader,
     );
   }
 
@@ -124,6 +128,7 @@ class SectionLayout extends StatelessWidget {
     bool useSafeArea = false,
     double? height,
     bool showAppBar = true,
+    bool centerHeader = false,
   }) {
     assert(
       showAppBar ||
@@ -146,6 +151,7 @@ class SectionLayout extends StatelessWidget {
       useSafeArea: useSafeArea,
       height: height,
       showAppBar: showAppBar,
+      centerHeader: centerHeader,
     );
   }
 
@@ -174,6 +180,7 @@ class SectionLayout extends StatelessWidget {
                 child: SectionHeader(
                   titleLines: titleLines,
                   description: description,
+                  isCenteredAligned: centerHeader,
                 ),
               ),
             ),
