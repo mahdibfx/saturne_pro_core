@@ -94,6 +94,7 @@ class CustomText extends StatelessWidget {
         overflow: TextOverflow.ellipsis,
         decoration: textDecoration,
         decorationStyle: textDecorationStyle,
+        decorationColor: designSystem.colors.secondary.shade500,
       ),
     );
   }
