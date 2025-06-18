@@ -22,8 +22,8 @@ class ComplexBackground extends StatelessWidget {
               opacity: .3,
             ),
           ),
-          height: double.infinity,
-          width: double.infinity,
+          height: 100.dh,
+          width: 100.dw,
         ),
         Positioned(
           top: 22.75.dh,
