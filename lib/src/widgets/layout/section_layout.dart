@@ -55,7 +55,7 @@ class SectionLayout extends StatelessWidget {
     Widget? footer,
     Widget? appBarTrailing,
     Widget? appBarChild,
-    bool useSafeArea = true,
+    bool useSafeArea = false,
     ActionButtonsLayout actionButtonsLayout = ActionButtonsLayout.row,
     double? height,
   }) {
