@@ -19,8 +19,9 @@ class SectionLayout extends StatelessWidget {
   final Widget? appBarChild;
   final bool useSafeArea;
   final ActionButtonsLayout actionButtonsLayout;
-  final VoidCallback onBackTapped;
+  final VoidCallback? onBackTapped;
   final double? height;
+  final bool showAppBar;
 
   const SectionLayout._({
     super.key,
@@ -39,13 +40,21 @@ class SectionLayout extends StatelessWidget {
     this.useSafeArea = false,
     this.actionButtonsLayout = ActionButtonsLayout.row,
     this.height,
-  });
+    this.showAppBar = true,
+  }) : assert(
+         showAppBar ||
+             (appBarTrailing == null &&
+                 appBarChild == null &&
+                 onBackTapped == null &&
+                 useSafeArea == false),
+         'If showAppBar is false, appBarTrailing, appBarChild, onBackTapped must be null, and useSafeArea must be false',
+       );
 
   factory SectionLayout.withActionButtons({
     Key? key,
     required List<String> titleLines,
     required Widget content,
-    required VoidCallback onBackTapped,
+    required VoidCallback? onBackTapped,
     required String mainButtonTitle,
     required VoidCallback onMainButtonTapped,
     String? description,
@@ -58,6 +67,7 @@ class SectionLayout extends StatelessWidget {
     bool useSafeArea = false,
     ActionButtonsLayout actionButtonsLayout = ActionButtonsLayout.row,
     double? height,
+    bool showAppBar = true,
   }) {
     assert(mainButtonTitle.isNotEmpty, 'Main button title cannot be empty');
     if (secondaryButtonTitle != null) {
@@ -72,6 +82,14 @@ class SectionLayout extends StatelessWidget {
         'Secondary button title must be provided when callback is set',
       );
     }
+    assert(
+      showAppBar ||
+          (appBarTrailing == null &&
+              appBarChild == null &&
+              onBackTapped == null &&
+              useSafeArea == false),
+      'If showAppBar is false, appBarTrailing, appBarChild, onBackTapped must be null, and useSafeArea must be false',
+    );
 
     return SectionLayout._(
       key: key,
@@ -90,6 +108,7 @@ class SectionLayout extends StatelessWidget {
       useSafeArea: useSafeArea,
       actionButtonsLayout: actionButtonsLayout,
       height: height,
+      showAppBar: showAppBar,
     );
   }
 
@@ -97,14 +116,24 @@ class SectionLayout extends StatelessWidget {
     Key? key,
     required List<String> titleLines,
     required Widget content,
-    required VoidCallback onBackTapped,
+    required VoidCallback? onBackTapped,
     String? description,
     Widget? footer,
     Widget? appBarTrailing,
     Widget? appBarChild,
     bool useSafeArea = false,
     double? height,
+    bool showAppBar = true,
   }) {
+    assert(
+      showAppBar ||
+          (appBarTrailing == null &&
+              appBarChild == null &&
+              onBackTapped == null &&
+              useSafeArea == false),
+      'If showAppBar is false, appBarTrailing, appBarChild, onBackTapped must be null, and useSafeArea must be false',
+    );
+
     return SectionLayout._(
       key: key,
       titleLines: titleLines,
@@ -116,6 +145,7 @@ class SectionLayout extends StatelessWidget {
       appBarChild: appBarChild,
       useSafeArea: useSafeArea,
       height: height,
+      showAppBar: showAppBar,
     );
   }
 
@@ -129,14 +159,15 @@ class SectionLayout extends StatelessWidget {
         height: height ?? 90.dh,
         child: CustomScrollView(
           slivers: [
-            CustomAppBar(
-              onBackTapped: onBackTapped,
-              backgroundColor: Colors.white,
-              height: useSafeArea ? null : ds.spacing.xl * 2.5,
-              useSafeArea: useSafeArea,
-              trailingWidget: appBarTrailing,
-              child: appBarChild,
-            ),
+            if (showAppBar)
+              CustomAppBar(
+                onBackTapped: onBackTapped!,
+                backgroundColor: Colors.white,
+                height: useSafeArea ? null : ds.spacing.xl * 2.5,
+                useSafeArea: useSafeArea,
+                trailingWidget: appBarTrailing,
+                child: appBarChild,
+              ),
             SliverPadding(
               padding: EdgeInsets.symmetric(horizontal: ds.spacing.l),
               sliver: SliverToBoxAdapter(
