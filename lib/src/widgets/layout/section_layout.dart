@@ -256,7 +256,7 @@ class SectionLayout extends StatelessWidget {
                             padding: EdgeInsets.only(bottom: ds.spacing.s),
                             child: footer!,
                           ),
-                        CustomGap(gapSize: GapSize.xl),
+                        CustomGap(gapSize: GapSize.l),
                       ],
                     ),
                   ),
