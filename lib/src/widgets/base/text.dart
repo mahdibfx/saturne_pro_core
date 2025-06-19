@@ -23,6 +23,7 @@ class CustomText extends StatelessWidget {
   final double? fontSize;
   final TextDecoration? textDecoration;
   final TextDecorationStyle? textDecorationStyle;
+  final Color? textDecorationColor;
   final TextAlign? textAlign;
   final int? maxLines;
 
@@ -35,6 +36,7 @@ class CustomText extends StatelessWidget {
     this.fontSize,
     this.textDecoration,
     this.textDecorationStyle,
+    this.textDecorationColor,
     this.textAlign = TextAlign.start,
     this.maxLines = 1,
   });
@@ -94,7 +96,8 @@ class CustomText extends StatelessWidget {
         overflow: TextOverflow.ellipsis,
         decoration: textDecoration,
         decorationStyle: textDecorationStyle,
-        decorationColor: designSystem.colors.secondary.shade500,
+        decorationColor:
+            textDecorationColor ?? designSystem.colors.secondary.shade500,
       ),
     );
   }
