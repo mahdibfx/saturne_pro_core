@@ -63,7 +63,7 @@ class CustomAppBarDelegate extends SliverPersistentHeaderDelegate {
   final Widget? child;
   final double height;
   final bool useSafeArea;
-  static const double _defaultHeight = 140.0;
+  static final double _defaultHeight = 14.5.dh;
 
   CustomAppBarDelegate({
     this.title,

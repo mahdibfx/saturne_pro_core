@@ -122,7 +122,7 @@ class _PlaygroundState extends State<Playground> with TickerProviderStateMixin {
         body: SectionLayout.withActionButtons(
           height: 100.dh,
           titleLines: ['Connexion à votrde compte'],
-          useSafeArea: false,
+          useSafeArea: true,
           description:
               "Connectez-vous pour accéder à vos trajets optimisés et gérer vos BT facilement.",
           content: Container(
