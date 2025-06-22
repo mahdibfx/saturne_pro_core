@@ -1,4 +1,5 @@
 // import 'package:example/pages/home.dart';
+import 'package:example/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:saturne_pro_core/saturne_pro_core.dart';
 import 'package:syntax_highlight/syntax_highlight.dart';
@@ -18,7 +19,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: SaturneProDesignSystem.lightMode,
-      home: const Playground(),
+      home: const Home(),
     );
   }
 }
@@ -119,99 +120,81 @@ class _PlaygroundState extends State<Playground> with TickerProviderStateMixin {
             ),
           ],
         ),
-        body: SectionLayout.withActionButtons(
-          height: 100.dh,
-          titleLines: ['Connexion à votrde compte'],
-          useSafeArea: true,
-          description:
-              "Connectez-vous pour accéder à vos trajets optimisés et gérer vos BT facilement.",
-          content: Container(
-            key: ValueKey('1'),
-            color: Colors.blue,
-            height: 100,
-          ),
-          onBackTapped: () {
-            Navigator.pop(context);
-          },
-          actionButtonsLayout: ActionButtonsLayout.row,
-          mainButtonTitle: 'Main Button',
-          onMainButtonTapped: () {},
-          secondaryButtonTitle: 'Skip',
-          onSecondaryButtonTapped: () {},
+        body: CustomScrollView(
+          controller: _scrollController,
+          slivers: [
+            CustomAppBar(
+              title: 'Nouveau patient',
+              useSafeArea: false,
+              onBackTapped: () {
+                print('hollaaaaa!!!');
+              },
+              trailingWidget: Builder(
+                builder: (context) {
+                  return CustomIconButton(
+                    icon: SaturneProIcons.questionCircle,
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        clipBehavior: Clip.hardEdge,
+                        backgroundColor: Colors.white,
+                        isScrollControlled: true,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(20),
+                            topRight: Radius.circular(20),
+                          ),
+                        ),
+                        builder: (context) {
+                          return SectionLayout.withActionButtons(
+                            height: 700,
+                            titleLines: ['Connexion à votre compte'],
+                            useSafeArea: false,
+                            description:
+                                "Connectez-vous pour accéder à vos trajets optimisés et gérer vos BT facilement.",
+                            content: SizedBox(),
+                            onBackTapped: () {
+                              Navigator.pop(context);
+                            },
+                            actionButtonsLayout: ActionButtonsLayout.row,
+                            mainButtonTitle: 'Main Button',
+                            onMainButtonTapped: () {},
+                            secondaryButtonTitle: 'Skip',
+                            onSecondaryButtonTapped: () {},
+                          );
+                        },
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
+            AppBarTabs(
+              tabItems: _tabItems,
+              onTabChanged: _onTabChanged,
+              isScrollable: true,
+              hidden: _hideTabs,
+            ),
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.all(ds.spacing.l),
+                child: Transform.translate(
+                  offset: Offset(0, _hideTabs ? .0 : -55.6),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      OptionsWidget.nonSelectable(
+                        title: 'pas encore sélectionné',
+                        flagLabel: 'Moyen de Paiement',
+                        leadingIcon: SaturneProIcons.creditCard,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
-        //  CustomScrollView(
-        //   controller: _scrollController,
-        //   slivers: [
-        //     CustomAppBar(
-        //       title: 'Nouveau patient',
-        //       useSafeArea: false,
-        //       onBackTapped: () {
-        //         print('hollaaaaa!!!');
-        //       },
-        //       trailingWidget: Builder(
-        //         builder: (context) {
-        //           return CustomIconButton(
-        //             icon: SaturneProIcons.questionCircle,
-        //             onTap: () {
-        //               showModalBottomSheet(
-        //                 context: context,
-        //                 clipBehavior: Clip.hardEdge,
-        //                 backgroundColor: Colors.white,
-        //                 isScrollControlled: true,
-        //                 shape: const RoundedRectangleBorder(
-        //                   borderRadius: BorderRadius.only(
-        //                     topLeft: Radius.circular(20),
-        //                     topRight: Radius.circular(20),
-        //                   ),
-        //                 ),
-        //                 builder: (context) {
-        //                   return SectionLayout.withActionButtons(
-        //                     height: 700,
-        //                     titleLines: ['Connexion à votre compte'],
-        //                     useSafeArea: false,
-        //                     description:
-        //                         "Connectez-vous pour accéder à vos trajets optimisés et gérer vos BT facilement.",
-        //                     content: SizedBox(),
-        //                     onBackTapped: () {
-        //                       Navigator.pop(context);
-        //                     },
-        //                     actionButtonsLayout: ActionButtonsLayout.row,
-        //                     mainButtonTitle: 'Main Button',
-        //                     onMainButtonTapped: () {},
-        //                     secondaryButtonTitle: 'Skip',
-        //                     onSecondaryButtonTapped: () {},
-        //                   );
-        //                 },
-        //               );
-        //             },
-        //           );
-        //         },
-        //       ),
-        //     ),
-        //     AppBarTabs(
-        //       tabItems: _tabItems,
-        //       onTabChanged: _onTabChanged,
-        //       isScrollable: true,
-        //       hidden: _hideTabs,
-        //     ),
-        //     SliverToBoxAdapter(
-        //       child: Padding(
-        //         padding: EdgeInsets.all(ds.spacing.l),
-        //         child: Transform.translate(
-        //           offset: Offset(0, _hideTabs ? .0 : -55.6),
-        //           child: Column(
-        //             crossAxisAlignment: CrossAxisAlignment.start,
-        //             children: [
-        //               Text('Selected Tab Index: $_selectedTabIndex'),
-        //               Text('Selected Bottom Nav Index: $_selectedIndex'),
-        //               SizedBox(height: 1000),
-        //             ],
-        //           ),
-        //         ),
-        //       ),
-        //     ),
-        //   ],
-        // ),
       ),
     );
   }

@@ -167,7 +167,7 @@ class _HomeState extends State<Home> {
       _buildContactSupportCardPreviewer(ds),
       _buildCustomBottomNavBarPreviewer(ds),
       _buildCustomTooltipPreviewer(ds),
-      _buildCustomHeaderPreviewer(ds),
+      _buildCustomHeaderPreviewer(ds), _buildOptionsWidgetPreviewer(ds),
       // Add other previewers here
     ];
 
@@ -962,6 +962,87 @@ class _HomeState extends State<Home> {
               ),
               CustomRadioButton(selected: false, onChanged: null),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildOptionsWidgetPreviewer(AppDesignSystem ds) {
+    return Previewer(
+      title: 'OptionsWidget',
+      description:
+          'A customizable options widget with selectable and non-selectable types',
+      codeSnippet: '''
+      // Selectable OptionsWidget
+      OptionsWidget.selectable(
+        leadingIcon: SaturneProIcons.user,
+        title: 'User Profile',
+        flagLabel: 'Manage your profile settings',
+        selected: true,
+        onChanged: (value) {
+          // Handle selection change
+        },
+      ),
+      
+      // Non-selectable OptionsWidget
+      OptionsWidget.nonSelectable(
+        leadingIcon: SaturneProIcons.setting,
+        title: 'Settings',
+        flagLabel: 'Configure app preferences',
+        onTap: () {
+          // Handle tap
+        },
+      ),
+      ''',
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: ds.spacing.l,
+        children: [
+          CustomText(
+            text: 'Selectable Options',
+            style: CustomTextStyle.bodyM,
+            fontWeight: FontWeight.w500,
+          ),
+          OptionsWidget.selectable(
+            leadingIcon: SaturneProIcons.user,
+            title: 'User Profile',
+            flagLabel: 'Manage your profile settings',
+            selected: true,
+            onChanged: (value) {
+              print('User Profile selected: $value');
+            },
+          ),
+          OptionsWidget.selectable(
+            leadingIcon: SaturneProIcons.bell,
+            title: 'Notifications',
+            flagLabel: 'Configure notification preferences',
+            selected: false,
+            onChanged: (value) {
+              print('Notifications selected: $value');
+            },
+          ),
+          SizedBox(height: ds.spacing.l),
+          CustomText(
+            text: 'Non-Selectable Options',
+            style: CustomTextStyle.bodyM,
+            fontWeight: FontWeight.w500,
+          ),
+          OptionsWidget.nonSelectable(
+            leadingIcon: SaturneProIcons.setting,
+            title: 'Settings',
+            flagLabel: 'Configure app preferences',
+            onTap: () {
+              print('Settings tapped');
+            },
+          ),
+          OptionsWidget.nonSelectable(
+            leadingIcon: SaturneProIcons.questionCircle,
+            title: 'Help & Support',
+            flagLabel: 'Get help and contact support',
+            onTap: () {
+              print('Help & Support tapped');
+            },
           ),
         ],
       ),
