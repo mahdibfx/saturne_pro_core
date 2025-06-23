@@ -48,7 +48,7 @@ class SectionHeader extends StatelessWidget {
       style: isSmall ? CustomTextStyle.headingM : CustomTextStyle.headingXL,
       color: ds.colors.primary.shade900,
       lineThickness: isSmall ? .76 * ds.spacing.l : .86 * ds.spacing.l,
-      fontWeight: isSmall ? FontWeight.w500 : FontWeight.w700,
+      fontWeight: FontWeight.w700,
       textAlign: _getTextAlignment(),
     );
   }
