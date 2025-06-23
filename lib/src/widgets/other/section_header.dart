@@ -18,11 +18,14 @@ class SectionHeader extends StatelessWidget {
   /// Whether the header should be center-aligned. Defaults to false (left-aligned).
   final bool isCenteredAligned;
 
+  final bool isSmall;
+
   const SectionHeader({
     super.key,
     required this.titleLines,
     this.description,
     this.isCenteredAligned = false,
+    this.isSmall = false,
   }) : assert(titleLines.length > 0, 'titleLines cannot be empty');
 
   /// Determines the cross-axis alignment based on the centered alignment flag.
@@ -42,7 +45,7 @@ class SectionHeader extends StatelessWidget {
     return UnderlinedText(
       textLines: titleLines,
       lineColor: ds.colors.secondary.shade500.withValues(alpha: .2),
-      style: CustomTextStyle.headingXL,
+      style: isSmall ? CustomTextStyle.headingM : CustomTextStyle.headingXL,
       color: ds.colors.primary.shade900,
       lineThickness: .86 * ds.spacing.l,
       textAlign: _getTextAlignment(),
@@ -55,7 +58,7 @@ class SectionHeader extends StatelessWidget {
       text: description!,
       textAlign: _getTextAlignment(),
       maxLines: 5,
-      style: CustomTextStyle.bodyL,
+      style: isSmall ? CustomTextStyle.captionM : CustomTextStyle.bodyL,
       fontWeight: FontWeight.w300,
       color: ds.colors.primary.shade900.withValues(alpha: .8),
     );
