@@ -19,7 +19,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: SaturneProDesignSystem.lightMode,
-      home: const Home(),
+      home: const Playground(),
     );
   }
 }
@@ -180,14 +180,12 @@ class _PlaygroundState extends State<Playground> with TickerProviderStateMixin {
                 padding: EdgeInsets.all(ds.spacing.l),
                 child: Transform.translate(
                   offset: Offset(0, _hideTabs ? .0 : -55.6),
-                  child: Column(
+                  child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      OptionsWidget.nonSelectable(
-                        title: 'pas encore sélectionné',
-                        flagLabel: 'Moyen de Paiement',
-                        leadingIcon: SaturneProIcons.creditCard,
-                      ),
+                      FilterPill.label(label: 'Hola'),
+                      CustomGap(gapSize: GapSize.s),
+                      FilterPill.icon(icon: SaturneProIcons.slidersVAlt),
                     ],
                   ),
                 ),
