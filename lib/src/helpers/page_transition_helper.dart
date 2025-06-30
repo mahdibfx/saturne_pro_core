@@ -13,6 +13,7 @@ class CustomRouteTransition {
       animation: animation,
       secondaryAnimation: secondaryAnimation,
       transitionType: SharedAxisTransitionType.horizontal,
+      fillColor: Colors.white,
       child: child,
     );
   }
