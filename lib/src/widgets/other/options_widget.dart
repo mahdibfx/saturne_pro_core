@@ -50,11 +50,7 @@ class OptionsWidget extends StatelessWidget {
   }) : type = OptionsWidgetType.selectable,
        trailingWidget = null,
        showDefaultArrowTrailingWidget = false,
-       onTap = null,
-       assert(
-         leadingIcon != null || leadingChild != null,
-         'Selectable OptionsWidget must have either leadingIcon or leadingChild',
-       );
+       onTap = null;
 
   /// Creates a non-selectable OptionsWidget
   const OptionsWidget.nonSelectable({
