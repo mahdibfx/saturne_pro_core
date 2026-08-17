@@ -183,7 +183,7 @@ class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
                         ),
                       ],
                       UnderlinedText(
-                        textLines: [title],
+                        textLines: _titleLines,
                         style: CustomTextStyle.displayL,
                         color: ds.colors.primary.shade500,
                         lineColor: ds.colors.secondary.shade500.withValues(
@@ -203,8 +203,19 @@ class CustomHeaderDelegate extends SliverPersistentHeaderDelegate {
     );
   }
 
+  /// A title carrying `\n` is laid out as several underlined lines rather
+  /// than being cut with an ellipsis — the underline is measured per line, so
+  /// the break has to be explicit.
+  List<String> get _titleLines => title.split('\n');
+
+  /// One displayL line is ~28px of glyph plus leading; the header grows by
+  /// that much for every extra line so the title never overflows its box.
+  static const double _extraLineHeight = 40;
+
   @override
-  double get maxExtent => tabBar != null ? 204 : 160;
+  double get maxExtent =>
+      (tabBar != null ? 204 : 160) +
+      (_titleLines.length - 1) * _extraLineHeight;
 
   @override
   double get minExtent => maxExtent;
