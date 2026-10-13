@@ -8,3 +8,4 @@ export 'options_widget.dart';
 export 'filter_pill.dart';
 export 'checklist_box.dart';
 export 'segmented_tabs.dart';
+export 'filter_chips.dart';

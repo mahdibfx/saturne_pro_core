@@ -5,12 +5,14 @@ import 'package:saturne_pro_core/src/widgets/base/base.dart';
 /// White pill track with a navy pill on the selected tab ("KPIs | Stats").
 class SegmentedTabs extends StatelessWidget {
   final List<String> labels;
+  final List<IconData>? icons;
   final int selectedIndex;
   final ValueChanged<int> onChanged;
 
   const SegmentedTabs({
     super.key,
     required this.labels,
+    this.icons,
     required this.selectedIndex,
     required this.onChanged,
   });
@@ -50,15 +52,32 @@ class SegmentedTabs extends StatelessWidget {
                             : Colors.transparent,
                     borderRadius: ds.borderRadii.radiusFull,
                   ),
-                  child: CustomText(
-                    text: label,
-                    style: CustomTextStyle.bodyS,
-                    fontWeight:
-                        i == selectedIndex ? FontWeight.w700 : FontWeight.w600,
-                    color:
-                        i == selectedIndex
-                            ? Colors.white
-                            : const Color(0xff666B78),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: ds.spacing.s,
+                    children: [
+                      if (icons != null)
+                        Icon(
+                          icons![i],
+                          size: 5 * ds.spacing.xs,
+                          color:
+                              i == selectedIndex
+                                  ? Colors.white
+                                  : ds.colors.shade.shade600,
+                        ),
+                      CustomText(
+                        text: label,
+                        style: CustomTextStyle.bodyS,
+                        fontWeight:
+                            i == selectedIndex
+                                ? FontWeight.w700
+                                : FontWeight.w600,
+                        color:
+                            i == selectedIndex
+                                ? Colors.white
+                                : ds.colors.shade.shade600,
+                      ),
+                    ],
                   ),
                 ),
               ),

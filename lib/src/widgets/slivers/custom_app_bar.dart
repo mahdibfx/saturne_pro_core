@@ -6,7 +6,9 @@ import '../widgets.dart';
 class CustomAppBar extends StatefulWidget {
   final String? title;
   final String? subLabel;
-  final VoidCallback onBackTapped;
+
+  /// Null on root tabs: no arrow, title stays centred.
+  final VoidCallback? onBackTapped;
   final Widget? trailingWidget;
   final Color? backgroundColor;
   final Widget? child;
@@ -16,7 +18,7 @@ class CustomAppBar extends StatefulWidget {
   const CustomAppBar({
     super.key,
     this.title,
-    required this.onBackTapped,
+    this.onBackTapped,
     this.subLabel,
     this.trailingWidget,
     this.backgroundColor,
@@ -56,7 +58,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
 class CustomAppBarDelegate extends SliverPersistentHeaderDelegate {
   final String? title;
   final String? subLabel;
-  final VoidCallback onBackTapped;
+
+  /// Null on root tabs: no arrow, title stays centred.
+  final VoidCallback? onBackTapped;
   final Widget? trailingWidget;
   final Color? backgroundColor;
   final Widget? child;
@@ -73,7 +77,7 @@ class CustomAppBarDelegate extends SliverPersistentHeaderDelegate {
   CustomAppBarDelegate({
     this.title,
     this.subLabel,
-    required this.onBackTapped,
+    this.onBackTapped,
     this.trailingWidget,
     this.backgroundColor,
     this.child,
@@ -103,11 +107,14 @@ class CustomAppBarDelegate extends SliverPersistentHeaderDelegate {
             onTap: onBackTapped,
             child: SizedBox.square(
               dimension: side,
-              child: Icon(
-                Icons.arrow_back_rounded,
-                color: Colors.white,
-                size: 5.25 * ds.spacing.xs,
-              ),
+              child:
+                  onBackTapped == null
+                      ? null
+                      : Icon(
+                        Icons.arrow_back_rounded,
+                        color: Colors.white,
+                        size: 5.25 * ds.spacing.xs,
+                      ),
             ),
           ),
           Expanded(

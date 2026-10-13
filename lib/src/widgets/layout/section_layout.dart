@@ -210,6 +210,8 @@ class SectionLayout extends StatelessWidget {
                   titleLines: titleLines,
                   description: description,
                   isCenteredAligned: centerHeader,
+                  // centred + illustration = confirm sheet: 20px title
+                  isSmall: centerHeader && illustration != null,
                 ),
               ),
             ),
