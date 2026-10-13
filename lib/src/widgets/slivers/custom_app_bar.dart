@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:saturne_pro_core/src/assets/icons.dart';
 import 'package:saturne_pro_core/src/helpers/helpers.dart';
 
 import '../widgets.dart';
@@ -63,7 +62,13 @@ class CustomAppBarDelegate extends SliverPersistentHeaderDelegate {
   final Widget? child;
   final double height;
   final bool useSafeArea;
-  static final double _defaultHeight = 14.5.dh;
+
+  /// Tellot bar: 66px of navy under the status bar.
+  static double get _defaultHeight =>
+      66 +
+      MediaQueryData.fromView(
+        WidgetsBinding.instance.platformDispatcher.views.first,
+      ).padding.top;
 
   CustomAppBarDelegate({
     this.title,
@@ -83,61 +88,68 @@ class CustomAppBarDelegate extends SliverPersistentHeaderDelegate {
     bool overlapsContent,
   ) {
     final ds = context.designSystem;
+    final side =
+        10.5 * ds.spacing.xs; // 42px tap targets keep the title centred
 
-    Widget content = Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: ds.spacing.xs,
-      children: [
-        Padding(
-          padding: EdgeInsets.only(
-            left: ds.spacing.l,
-            right: ds.spacing.l,
-            bottom: ds.spacing.l,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              CustomIconButton(
-                icon: SaturneProIcons.arrowLeft,
-                onTap: onBackTapped,
+    Widget content = Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: ds.spacing.l,
+        vertical: 3 * ds.spacing.xs,
+      ),
+      child: Row(
+        children: [
+          GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: onBackTapped,
+            child: SizedBox.square(
+              dimension: side,
+              child: Icon(
+                Icons.arrow_back_rounded,
+                color: Colors.white,
+                size: 5.25 * ds.spacing.xs,
               ),
-              if (child != null)
-                child!
-              else if (title != null)
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    UnderlinedText(
-                      textLines: [title!],
-                      style: CustomTextStyle.headingXL,
-                      color: ds.colors.primary.shade500,
-                      lineColor: ds.colors.secondary.shade500.withValues(
-                        alpha: .2,
-                      ),
-                    ),
-                    if (subLabel != null) ...[
-                      CustomText(
-                        text: subLabel!,
-                        style: CustomTextStyle.bodyS,
-                        fontWeight: FontWeight.w400,
-                        color: ds.colors.primary.shade900.withValues(alpha: .4),
-                      ),
-                    ],
-                  ],
-                ),
-              trailingWidget ?? SizedBox(width: 1.5 * ds.spacing.xl),
-            ],
+            ),
           ),
-        ),
-      ],
+          Expanded(
+            child: DefaultTextStyle.merge(
+              style: const TextStyle(color: Colors.white),
+              child: Center(
+                child:
+                    child ??
+                    (title == null
+                        ? const SizedBox.shrink()
+                        : Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            CustomText(
+                              text: title!,
+                              style: CustomTextStyle.headingM,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white,
+                              textAlign: TextAlign.center,
+                              maxLines: 1,
+                            ),
+                            if (subLabel != null)
+                              CustomText(
+                                text: subLabel!,
+                                style: CustomTextStyle.captionM,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.white.withValues(alpha: .7),
+                                maxLines: 1,
+                              ),
+                          ],
+                        )),
+              ),
+            ),
+          ),
+          SizedBox(width: side, child: Center(child: trailingWidget)),
+        ],
+      ),
     );
 
     return Container(
-      color: backgroundColor ?? ds.colors.primary.shade50,
+      color: backgroundColor ?? ds.colors.primary.shade500,
+      alignment: Alignment.bottomCenter,
       child: useSafeArea ? SafeArea(bottom: false, child: content) : content,
     );
   }

@@ -33,11 +33,12 @@ class CustomIconButton extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.white,
                 shape: BoxShape.circle,
-                boxShadow: [
+                border: Border.all(color: ds.colors.shade.shade200),
+                boxShadow: const [
                   BoxShadow(
-                    color: ds.colors.primary.shade900.withValues(alpha: .05),
-                    offset: Offset(0, .93 * ds.spacing.l),
-                    blurRadius: 20.0,
+                    color: Color(0x05000000),
+                    offset: Offset(0, 4),
+                    blurRadius: 12,
                   ),
                 ],
               ),

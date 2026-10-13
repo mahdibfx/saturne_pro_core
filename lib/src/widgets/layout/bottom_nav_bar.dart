@@ -38,11 +38,15 @@ class CustomBottomNavBar extends StatelessWidget {
     return Container(
       width: 100.dw,
       padding: EdgeInsets.only(
-        bottom: ds.spacing.xl,
+        top: ds.spacing.s,
+        bottom: ds.spacing.l,
         right: ds.spacing.s,
         left: ds.spacing.s,
       ),
-      color: ds.colors.primary.shade50,
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        border: Border(top: BorderSide(color: Color(0xffEDEDED))),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -61,14 +65,6 @@ class CustomBottomNavBar extends StatelessWidget {
 
 /// A widget representing a single item in the bottom navigation bar.
 class BottomNavBarItemWidget extends StatelessWidget {
-  static const _animationDuration = Duration(milliseconds: 500);
-  static const _animationCurve = Curves.fastLinearToSlowEaseIn;
-  static const _selectedOpacity = 1.0;
-  static const _unselectedOpacity = 0.6;
-  static const _indicatorWidthFactor = 0.9;
-  static const _iconSizeFactor = 0.75;
-  static const _topPaddingFactor = 0.8;
-
   /// The data for this navigation item
   final BottomNavBarItemData item;
 
@@ -98,19 +94,9 @@ class BottomNavBarItemWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             spacing: ds.spacing.xs,
             children: [
-              AnimatedContainer(
-                duration: _animationDuration,
-                curve: _animationCurve,
-                height: .7 * ds.spacing.xs,
-                width: item.isSelected ? _indicatorWidthFactor * width : 0,
-                decoration: BoxDecoration(
-                  color: ds.colors.primary.shade500,
-                  borderRadius: ds.borderRadii.radiusFull,
-                ),
-              ),
               Container(
                 width: width,
-                padding: EdgeInsets.only(top: _topPaddingFactor * ds.spacing.l),
+                padding: EdgeInsets.only(top: 1.5 * ds.spacing.xs),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -119,25 +105,22 @@ class BottomNavBarItemWidget extends StatelessWidget {
                   children: [
                     Icon(
                       item.icon,
-                      size: _iconSizeFactor * ds.spacing.xl,
-                      color: ds.colors.primary.shade500.withValues(
-                        alpha:
-                            item.isSelected
-                                ? _selectedOpacity
-                                : _unselectedOpacity,
-                      ),
+                      size: 6 * ds.spacing.xs,
+                      color:
+                          item.isSelected
+                              ? ds.colors.primary.shade500
+                              : ds.colors.shade.shade400,
                     ),
                     CustomText(
                       text: item.label,
-                      style: CustomTextStyle.captionM,
-                      color: ds.colors.primary.shade500.withValues(
-                        alpha:
-                            item.isSelected
-                                ? _selectedOpacity
-                                : _unselectedOpacity,
-                      ),
+                      fontSize: 10,
+                      maxLines: 1,
+                      color:
+                          item.isSelected
+                              ? ds.colors.primary.shade500
+                              : ds.colors.shade.shade400,
                       fontWeight:
-                          item.isSelected ? FontWeight.w600 : FontWeight.w400,
+                          item.isSelected ? FontWeight.w600 : FontWeight.w500,
                     ),
                   ],
                 ),
