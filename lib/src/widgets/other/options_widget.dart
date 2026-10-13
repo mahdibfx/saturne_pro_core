@@ -91,9 +91,9 @@ class OptionsWidget extends StatelessWidget {
                   bottom: ds.spacing.xs,
                 ),
                 child: Icon(
-                  SaturneProIcons.angleRight,
-                  color: ds.colors.primary.shade500.withValues(alpha: .5),
-                  size: .93 * ds.spacing.xl,
+                  Icons.chevron_right_rounded,
+                  color: ds.colors.shade.shade500,
+                  size: 5 * ds.spacing.xs,
                 ),
               )
               : null);
@@ -118,18 +118,13 @@ class OptionsWidget extends StatelessWidget {
                 children: [
                   if (leadingIcon != null || leadingChild != null)
                     Container(
-                      height: 6.3.h,
-                      width: 6.3.h,
+                      height: 10 * ds.spacing.xs,
+                      width: 10 * ds.spacing.xs,
                       decoration: BoxDecoration(
                         color:
                             leadingBoxDecoration?.color ??
-                            ds.colors.primary.shade50,
-                        border:
-                            leadingBoxDecoration?.border ??
-                            Border.all(
-                              color: ds.colors.primary.shade500,
-                              width: .3,
-                            ),
+                            ds.colors.secondary.shade50,
+                        border: leadingBoxDecoration?.border,
                         shape: BoxShape.circle,
                       ),
                       padding: EdgeInsets.all(ds.spacing.s),
@@ -137,8 +132,8 @@ class OptionsWidget extends StatelessWidget {
                           leadingChild ??
                           Icon(
                             leadingIcon!,
-                            color: ds.colors.primary.shade500,
-                            size: 2.85.h,
+                            color: ds.colors.secondary.shade500,
+                            size: 5 * ds.spacing.xs,
                           ),
                     ),
                   Flexible(
@@ -150,27 +145,25 @@ class OptionsWidget extends StatelessWidget {
                         if (titleOnTopOfFlagLabel)
                           CustomText(
                             text: title,
-                            style: CustomTextStyle.bodyL,
+                            style: CustomTextStyle.bodyS,
                             fontWeight: FontWeight.w500,
-                            color: ds.colors.primary.shade500,
+                            color: ds.colors.primary.shade900,
                             maxLines: 2,
                           ),
                         if (flagLabel != null)
                           CustomText(
                             text: flagLabel!,
-                            style: CustomTextStyle.bodyS,
-                            fontWeight: FontWeight.w400,
-                            color: ds.colors.primary.shade500.withValues(
-                              alpha: .5,
-                            ),
+                            fontSize: 11,
+                            fontWeight: FontWeight.w500,
+                            color: ds.colors.shade.shade400,
                             maxLines: 2,
                           ),
                         if (!titleOnTopOfFlagLabel)
                           CustomText(
                             text: title,
-                            style: CustomTextStyle.bodyL,
+                            style: CustomTextStyle.bodyS,
                             fontWeight: FontWeight.w500,
-                            color: ds.colors.primary.shade500,
+                            color: ds.colors.primary.shade900,
                             maxLines: 2,
                           ),
                       ],
