@@ -5,9 +5,9 @@ class GradientsData {
   // Private constructor to prevent instantiation.
   GradientsData._();
 
-  /// Represents a primary gradient.
+  /// Tellot primary CTA: flat brand yellow (kept as a gradient so Button's API stays the same).
   static final LinearGradient primaryGradient = LinearGradient(
-    colors: [Color(0xff036666), Color(0xff40AFB8)],
+    colors: [Color(0xffFFC607), Color(0xffFFC607)],
     begin: Alignment.bottomLeft,
     end: Alignment.topRight,
   );
