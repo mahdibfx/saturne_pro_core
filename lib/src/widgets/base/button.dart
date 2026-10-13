@@ -85,18 +85,18 @@ class Button extends StatelessWidget {
       case ButtonType.filled:
         return BoxDecoration(
           gradient: backgroundColor,
-          borderRadius: ds.borderRadii.radiusL,
+          borderRadius: ds.borderRadii.radiusM,
         );
       case ButtonType.outlined:
         return BoxDecoration(
           color: Colors.transparent,
           border: Border.all(color: labelColor!),
-          borderRadius: ds.borderRadii.radiusL,
+          borderRadius: ds.borderRadii.radiusM,
         );
       case ButtonType.plain:
         return BoxDecoration(
           color: Colors.transparent,
-          borderRadius: ds.borderRadii.radiusL,
+          borderRadius: ds.borderRadii.radiusM,
         );
     }
   }
@@ -133,10 +133,10 @@ class Button extends StatelessWidget {
                               ? .05
                               : 0,
                     ),
-                    borderRadius: ds.borderRadii.radiusL,
+                    borderRadius: ds.borderRadii.radiusM,
                   ),
                   padding: EdgeInsets.symmetric(
-                    vertical: 3 * ds.spacing.xs,
+                    vertical: 4 * ds.spacing.xs,
                     horizontal: ds.spacing.l + 2 * ds.spacing.xs,
                   ),
                   child: Row(
@@ -146,8 +146,8 @@ class Button extends StatelessWidget {
                       Flexible(
                         child: CustomText(
                           text: label,
-                          style: CustomTextStyle.bodyM,
-                          fontWeight: FontWeight.w500,
+                          style: CustomTextStyle.bodyL,
+                          fontWeight: FontWeight.w700,
                           color: labelColor,
                         ),
                       ),
