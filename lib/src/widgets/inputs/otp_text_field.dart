@@ -1,7 +1,8 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 import 'package:saturne_pro_core/src/helpers/helpers.dart';
 
+/// Six 52px boxes; the focused one gets the brand-yellow border.
 class OtpTextField extends StatelessWidget {
   final Function(String)? onCompleted;
   final Function(String)? onChanged;
@@ -11,58 +12,50 @@ class OtpTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ds = context.designSystem;
-    return Pinput(
-      defaultPinTheme: PinTheme(
-        width: 1.64 * ds.spacing.xl,
-        height: 1.5 * ds.spacing.xl,
-        textStyle: ds.typography.bodyL.copyWith(
-          color: ds.colors.primary.shade900,
-        ),
-        decoration: BoxDecoration(
-          color: ds.colors.primary.shade50,
-          border: Border.all(
-            color: ds.colors.primary.shade500.withValues(alpha: .3),
-            width: .2,
+    const yellow = Color(0xffFFC400);
+    final gap = 1.5 * ds.spacing.xs;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // 52px boxes, shrunk to fit narrow screens.
+        final box = ((constraints.maxWidth - 5 * gap) / 6).clamp(
+          0.0,
+          13 * ds.spacing.xs,
+        );
+        PinTheme theme(Color border, double width, Color text) => PinTheme(
+          width: box,
+          height: box,
+          textStyle: ds.typography.headingL.copyWith(
+            fontWeight: FontWeight.w600,
+            color: text,
           ),
-          borderRadius: ds.borderRadii.radiusS,
-        ),
-      ),
-      focusedPinTheme: PinTheme(
-        width: 1.64 * ds.spacing.xl,
-        height: 1.5 * ds.spacing.xl,
-        textStyle: ds.typography.bodyL.copyWith(
-          color: ds.colors.primary.shade900,
-        ),
-        decoration: BoxDecoration(
-          color: ds.colors.primary.shade50,
-          border: Border.all(
-            color: ds.colors.primary.shade500.withValues(alpha: .6),
-            width: 1,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            border: Border.all(color: border, width: width),
+            borderRadius: ds.borderRadii.radiusM,
           ),
-          borderRadius: ds.borderRadii.radiusS,
-        ),
-      ),
-      submittedPinTheme: PinTheme(
-        width: 1.64 * ds.spacing.xl,
-        height: 1.5 * ds.spacing.xl,
-        textStyle: ds.typography.headingM.copyWith(
-          color: ds.colors.primary.shade900,
-        ),
-        decoration: BoxDecoration(
-          color: ds.colors.primary.shade100,
-          border: Border.all(
-            color: ds.colors.primary.shade500.withValues(alpha: .6),
-            width: .2,
+        );
+
+        return Pinput(
+          defaultPinTheme: theme(
+            const Color(0xffEDEDF2),
+            1,
+            ds.colors.primary.shade900,
           ),
-          borderRadius: ds.borderRadii.radiusS,
-        ),
-      ),
-      length: 6,
-      pinputAutovalidateMode: PinputAutovalidateMode.disabled,
-      pinAnimationType: PinAnimationType.scale,
-      showCursor: true,
-      onCompleted: onCompleted,
-      onChanged: onChanged,
+          focusedPinTheme: theme(yellow, 2, yellow),
+          submittedPinTheme: theme(
+            ds.colors.shade.shade200,
+            1,
+            ds.colors.primary.shade900,
+          ),
+          length: 6,
+          separatorBuilder: (_) => SizedBox(width: gap),
+          pinputAutovalidateMode: PinputAutovalidateMode.disabled,
+          pinAnimationType: PinAnimationType.scale,
+          showCursor: true,
+          onCompleted: onCompleted,
+          onChanged: onChanged,
+        );
+      },
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saturne_pro_core/src/helpers/helpers.dart';
+import 'package:saturne_pro_core/src/design%20system/design_system.dart';
 
 import '../widgets.dart';
 
@@ -23,6 +24,9 @@ class SectionLayout extends StatelessWidget {
   final double? height;
   final bool showAppBar;
   final bool centerHeader;
+  final int step;
+  final Widget? illustration;
+  final int? stepCount;
 
   const SectionLayout._({
     super.key,
@@ -43,6 +47,9 @@ class SectionLayout extends StatelessWidget {
     this.height,
     this.showAppBar = true,
     this.centerHeader = false,
+    this.step = 1,
+    this.stepCount,
+    this.illustration,
   }) : assert(
          showAppBar ||
              (appBarTrailing == null &&
@@ -71,6 +78,9 @@ class SectionLayout extends StatelessWidget {
     double? height,
     bool showAppBar = true,
     bool centerHeader = false,
+    int step = 1,
+    int? stepCount,
+    Widget? illustration,
   }) {
     assert(mainButtonTitle.isNotEmpty, 'Main button title cannot be empty');
     if (secondaryButtonTitle != null) {
@@ -113,6 +123,9 @@ class SectionLayout extends StatelessWidget {
       height: height,
       showAppBar: showAppBar,
       centerHeader: centerHeader,
+      step: step,
+      stepCount: stepCount,
+      illustration: illustration,
     );
   }
 
@@ -155,6 +168,9 @@ class SectionLayout extends StatelessWidget {
     );
   }
 
+  Color _mainLabelColor(AppDesignSystem ds) =>
+      mainButtonGradient == null ? ds.colors.primary.shade500 : Colors.white;
+
   @override
   Widget build(BuildContext context) {
     final ds = context.designSystem;
@@ -166,16 +182,29 @@ class SectionLayout extends StatelessWidget {
         child: CustomScrollView(
           slivers: [
             if (showAppBar)
-              CustomAppBar(
-                onBackTapped: onBackTapped!,
-                backgroundColor: Colors.white,
-                height: useSafeArea ? null : ds.spacing.xl * 2.5,
-                useSafeArea: useSafeArea,
-                trailingWidget: appBarTrailing,
-                child: appBarChild,
+              SliverToBoxAdapter(
+                child: SafeArea(
+                  top: useSafeArea,
+                  bottom: false,
+                  child: BackHeader(
+                    onBackTapped: onBackTapped!,
+                    step: step,
+                    stepCount: stepCount,
+                    trailing: appBarTrailing ?? appBarChild,
+                  ),
+                ),
+              ),
+            SliverToBoxAdapter(child: CustomGap(gapSize: GapSize.l)),
+            if (illustration != null)
+              SliverPadding(
+                padding: EdgeInsets.only(
+                  top: ds.spacing.xl,
+                  bottom: ds.spacing.xl,
+                ),
+                sliver: SliverToBoxAdapter(child: illustration),
               ),
             SliverPadding(
-              padding: EdgeInsets.symmetric(horizontal: ds.spacing.l),
+              padding: EdgeInsets.symmetric(horizontal: 6 * ds.spacing.xs),
               sliver: SliverToBoxAdapter(
                 child: SectionHeader(
                   titleLines: titleLines,
@@ -186,14 +215,14 @@ class SectionLayout extends StatelessWidget {
             ),
             SliverPadding(
               padding: EdgeInsets.symmetric(
-                horizontal: ds.spacing.l,
+                horizontal: 6 * ds.spacing.xs,
                 vertical: 1.5 * ds.spacing.l,
               ),
               sliver: SliverToBoxAdapter(child: content),
             ),
             if (mainButtonTitle != null)
               SliverPadding(
-                padding: EdgeInsets.symmetric(horizontal: ds.spacing.l),
+                padding: EdgeInsets.symmetric(horizontal: 6 * ds.spacing.xs),
                 sliver: SliverFillRemaining(
                   hasScrollBody: false,
                   child: SafeArea(
@@ -209,19 +238,33 @@ class SectionLayout extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.end,
                             spacing: ds.spacing.l,
                             children: [
-                              if (secondaryButtonTitle != null)
-                                Button.outlined(
-                                  label: secondaryButtonTitle!,
-                                  labelColor: ds.colors.secondary.shade500,
-                                  onTap: onSecondaryButtonTapped!,
-                                ),
                               Button.filled(
                                 label: mainButtonTitle!,
                                 backgroundColor:
                                     mainButtonGradient ?? ds.gradients.primary,
-                                labelColor: Colors.white,
+                                labelColor: _mainLabelColor(ds),
                                 onTap: onMainButtonTapped!,
                               ),
+                              if (secondaryButtonTitle != null)
+                                DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    borderRadius: ds.borderRadii.radiusM,
+                                    border: Border.all(
+                                      color: ds.colors.shade.shade200,
+                                    ),
+                                  ),
+                                  child: Button.filled(
+                                    label: secondaryButtonTitle!,
+                                    backgroundColor: LinearGradient(
+                                      colors: [
+                                        ds.colors.primary.shade50,
+                                        ds.colors.primary.shade50,
+                                      ],
+                                    ),
+                                    labelColor: ds.colors.primary.shade500,
+                                    onTap: onSecondaryButtonTapped!,
+                                  ),
+                                ),
                             ],
                           ),
                         if (actionButtonsLayout == ActionButtonsLayout.row)
@@ -245,7 +288,7 @@ class SectionLayout extends StatelessWidget {
                                   backgroundColor:
                                       mainButtonGradient ??
                                       ds.gradients.primary,
-                                  labelColor: Colors.white,
+                                  labelColor: _mainLabelColor(ds),
                                   onTap: onMainButtonTapped!,
                                 ),
                               ),

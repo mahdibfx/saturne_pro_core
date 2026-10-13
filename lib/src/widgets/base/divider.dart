@@ -17,18 +17,13 @@ class CustomDivider extends StatelessWidget {
         if (label != null) ...[
           CustomText(
             text: label!,
-            style: CustomTextStyle.bodyL,
-            fontWeight: FontWeight.w400,
-            color: ds.colors.primary.shade900.withValues(alpha: .5),
+            style: CustomTextStyle.bodyS,
+            fontWeight: FontWeight.w500,
+            color: const Color(0xff4F6262),
           ),
         ],
         if (trailingWidget != null) ...[trailingWidget!],
-        Expanded(
-          child: Divider(
-            thickness: .5,
-            color: ds.colors.primary.shade500.withValues(alpha: .2),
-          ),
-        ),
+        Expanded(child: Divider(thickness: 1, color: const Color(0xffE4E9E9))),
       ],
     );
   }

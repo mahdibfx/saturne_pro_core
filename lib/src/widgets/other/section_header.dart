@@ -4,12 +4,12 @@ import 'package:saturne_pro_core/src/helpers/helpers.dart';
 
 import '../widgets.dart';
 
-/// A widget that displays a section header with an underlined title and optional description.
+/// A widget that displays a section header with a bold title and optional description.
 ///
 /// This widget provides a consistent way to display section headers throughout the app,
 /// with support for multi-line titles, optional descriptions, and center alignment.
 class SectionHeader extends StatelessWidget {
-  /// The list of text lines for the title. Each line will be underlined.
+  /// The title, joined into one wrapping paragraph.
   final List<String> titleLines;
 
   /// Optional description text displayed below the title.
@@ -40,28 +40,26 @@ class SectionHeader extends StatelessWidget {
     return isCenteredAligned ? TextAlign.center : TextAlign.start;
   }
 
-  /// Builds the underlined title widget.
+  /// Lines are joined and left to wrap; the Tellot title has no underline.
   Widget _buildTitle(AppDesignSystem ds) {
-    return UnderlinedText(
-      textLines: titleLines,
-      lineColor: ds.colors.secondary.shade500.withValues(alpha: .2),
-      style: isSmall ? CustomTextStyle.headingM : CustomTextStyle.headingXL,
+    return CustomText(
+      text: titleLines.join(' '),
+      style: isSmall ? CustomTextStyle.headingL : CustomTextStyle.displayL,
       color: ds.colors.primary.shade900,
-      lineThickness: isSmall ? .76 * ds.spacing.l : .86 * ds.spacing.l,
       fontWeight: FontWeight.w700,
       textAlign: _getTextAlignment(),
+      maxLines: 4,
     );
   }
 
-  /// Builds the description text widget.
   Widget _buildDescription(AppDesignSystem ds) {
     return CustomText(
       text: description!,
       textAlign: _getTextAlignment(),
       maxLines: 5,
-      style: isSmall ? CustomTextStyle.captionM : CustomTextStyle.bodyL,
-      fontWeight: FontWeight.w300,
-      color: ds.colors.primary.shade900.withValues(alpha: .8),
+      style: CustomTextStyle.bodyS,
+      fontWeight: FontWeight.w400,
+      color: ds.colors.shade.shade600,
     );
   }
 

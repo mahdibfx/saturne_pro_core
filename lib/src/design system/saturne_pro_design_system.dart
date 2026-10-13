@@ -29,7 +29,8 @@ class SaturneProDesignSystem {
 
   /// Theme data for the light mode of the SaturneProCore application.
   static final ThemeData lightMode = ThemeData(
-    scaffoldBackgroundColor: Colors.white,
+    // Tellot screen background (#F3F5F7 on every app frame).
+    scaffoldBackgroundColor: const Color(0xffF3F5F7),
     extensions: [
       AppDesignSystem(
         colors: const ColorStyles(

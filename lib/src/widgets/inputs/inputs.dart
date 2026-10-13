@@ -5,3 +5,4 @@ export 'search_bar.dart';
 export 'text_field.dart';
 export 'otp_text_field.dart';
 export 'calender.dart';
+export 'phone_text_field.dart';
