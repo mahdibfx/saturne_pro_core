@@ -48,20 +48,16 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       curve: Curves.fastLinearToSlowEaseIn,
-      padding: EdgeInsets.symmetric(
-        horizontal: ds.spacing.l + 1.75 * ds.spacing.xs,
-        vertical: ds.spacing.l,
-      ),
+      height: 12 * ds.spacing.xs,
+      padding: EdgeInsets.symmetric(horizontal: ds.spacing.l),
       decoration: BoxDecoration(
-        color: ds.colors.primary.shade900.withValues(alpha: .03),
+        color: Colors.white,
         borderRadius: BorderRadius.circular(1000),
         border: Border.all(
           color:
               _focusNode.hasFocus
-                  ? ds.colors.primary.shade500.withValues(alpha: .4)
-                  : ds.colors.primary.shade900.withValues(alpha: .05),
-          width: _focusNode.hasFocus ? .6 : .2,
-          strokeAlign: BorderSide.strokeAlignOutside,
+                  ? ds.colors.primary.shade500
+                  : ds.colors.shade.shade200,
         ),
       ),
       child: Row(
@@ -71,20 +67,12 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
           Expanded(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
-              spacing: ds.spacing.l,
+              spacing: ds.spacing.s,
               children: [
                 Icon(
                   SaturneProIcons.search,
-                  color: ds.colors.primary.shade800,
-                  size: ds.spacing.l + ds.spacing.xs,
-                ),
-                SizedBox(
-                  height: ds.spacing.l + 1.8 * ds.spacing.xs,
-                  child: VerticalDivider(
-                    thickness: 1.0,
-                    width: 1.0,
-                    color: ds.colors.primary.shade500.withValues(alpha: .1),
-                  ),
+                  color: ds.colors.shade.shade400,
+                  size: 5 * ds.spacing.xs,
                 ),
                 Expanded(
                   child: TextField(
@@ -92,7 +80,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                     focusNode: _focusNode,
                     onChanged: widget.onChanged,
                     onSubmitted: widget.onSubmitted,
-                    style: ds.typography.bodyL.copyWith(
+                    style: ds.typography.bodyS.copyWith(
                       fontWeight: FontWeight.w400,
                       color: ds.colors.primary.shade900,
                     ),
@@ -100,9 +88,9 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                     decoration: InputDecoration.collapsed(
                       hintText: widget.hintText,
                       hintFadeDuration: const Duration(milliseconds: 200),
-                      hintStyle: ds.typography.bodyL.copyWith(
+                      hintStyle: ds.typography.bodyS.copyWith(
                         fontWeight: FontWeight.w400,
-                        color: ds.colors.primary.shade800.withValues(alpha: .3),
+                        color: ds.colors.shade.shade400,
                       ),
                     ),
                   ),
