@@ -49,11 +49,18 @@ class PhoneTextField extends StatelessWidget {
               ),
               alignment: Alignment.center,
               // ponytail: France only; swap for a country picker if the app opens abroad.
-              child: CustomText(
-                text: '🇫🇷  +33',
-                style: CustomTextStyle.bodyS,
-                fontWeight: FontWeight.w600,
-                color: ds.colors.primary.shade900,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                spacing: ds.spacing.s,
+                children: [
+                  const Text('🇫🇷', style: TextStyle(fontSize: 20)),
+                  CustomText(
+                    text: '+33',
+                    style: CustomTextStyle.bodyS,
+                    fontWeight: FontWeight.w600,
+                    color: ds.colors.primary.shade900,
+                  ),
+                ],
               ),
             ),
             Expanded(
