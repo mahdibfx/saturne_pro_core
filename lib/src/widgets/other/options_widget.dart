@@ -117,25 +117,32 @@ class OptionsWidget extends StatelessWidget {
                 spacing: .875 * ds.spacing.l,
                 children: [
                   if (leadingIcon != null || leadingChild != null)
-                    Container(
-                      height: 10 * ds.spacing.xs,
-                      width: 10 * ds.spacing.xs,
-                      decoration: BoxDecoration(
-                        color:
-                            leadingBoxDecoration?.color ??
-                            ds.colors.secondary.shade50,
-                        border: leadingBoxDecoration?.border,
-                        shape: BoxShape.circle,
+                    if (leadingChild is Image)
+                      // Tellot glass icons already carry their own circle.
+                      SizedBox.square(
+                        dimension: 12 * ds.spacing.xs,
+                        child: leadingChild,
+                      )
+                    else
+                      Container(
+                        height: 10 * ds.spacing.xs,
+                        width: 10 * ds.spacing.xs,
+                        decoration: BoxDecoration(
+                          color:
+                              leadingBoxDecoration?.color ??
+                              ds.colors.secondary.shade50,
+                          border: leadingBoxDecoration?.border,
+                          shape: BoxShape.circle,
+                        ),
+                        padding: EdgeInsets.all(ds.spacing.s),
+                        child:
+                            leadingChild ??
+                            Icon(
+                              leadingIcon!,
+                              color: ds.colors.secondary.shade500,
+                              size: 5 * ds.spacing.xs,
+                            ),
                       ),
-                      padding: EdgeInsets.all(ds.spacing.s),
-                      child:
-                          leadingChild ??
-                          Icon(
-                            leadingIcon!,
-                            color: ds.colors.secondary.shade500,
-                            size: 5 * ds.spacing.xs,
-                          ),
-                    ),
                   Flexible(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,

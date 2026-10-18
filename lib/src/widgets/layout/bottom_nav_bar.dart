@@ -17,11 +17,15 @@ class BottomNavBarItemData {
   /// Callback function when this item is tapped
   final VoidCallback onTap;
 
+  /// Shown instead of [icon] when selected (Tellot glass icons).
+  final Widget? selectedIcon;
+
   const BottomNavBarItemData({
     required this.label,
     required this.icon,
     required this.isSelected,
     required this.onTap,
+    this.selectedIcon,
   });
 }
 
@@ -103,24 +107,35 @@ class BottomNavBarItemWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   spacing: ds.spacing.xs,
                   children: [
-                    Icon(
-                      item.icon,
-                      size: 6 * ds.spacing.xs,
-                      color:
-                          item.isSelected
-                              ? ds.colors.primary.shade500
-                              : ds.colors.shade.shade400,
-                    ),
-                    CustomText(
-                      text: item.label,
-                      fontSize: 10,
-                      maxLines: 1,
-                      color:
-                          item.isSelected
-                              ? ds.colors.primary.shade500
-                              : ds.colors.shade.shade400,
-                      fontWeight:
-                          item.isSelected ? FontWeight.w600 : FontWeight.w500,
+                    if (item.isSelected && item.selectedIcon != null)
+                      SizedBox.square(
+                        dimension: 6 * ds.spacing.xs,
+                        child: item.selectedIcon,
+                      )
+                    else
+                      Icon(
+                        item.icon,
+                        size: 6 * ds.spacing.xs,
+                        color:
+                            item.isSelected
+                                ? ds.colors.primary.shade500
+                                : ds.colors.shade.shade400,
+                      ),
+                    // Long labels ("Télétransmission") shrink instead of
+                    // ellipsing in a fifth of the screen.
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: CustomText(
+                        text: item.label,
+                        fontSize: 10,
+                        maxLines: 1,
+                        color:
+                            item.isSelected
+                                ? ds.colors.primary.shade500
+                                : ds.colors.shade.shade400,
+                        fontWeight:
+                            item.isSelected ? FontWeight.w600 : FontWeight.w500,
+                      ),
                     ),
                   ],
                 ),
