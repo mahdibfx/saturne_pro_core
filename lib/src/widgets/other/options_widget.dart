@@ -128,10 +128,10 @@ class OptionsWidget extends StatelessWidget {
                         height: 10 * ds.spacing.xs,
                         width: 10 * ds.spacing.xs,
                         decoration: BoxDecoration(
-                          color:
-                              leadingBoxDecoration?.color ??
-                              ds.colors.secondary.shade50,
-                          border: leadingBoxDecoration?.border,
+                          color: leadingBoxDecoration?.color ?? Colors.white,
+                          border:
+                              leadingBoxDecoration?.border ??
+                              Border.all(color: ds.colors.shade.shade200),
                           shape: BoxShape.circle,
                         ),
                         padding: EdgeInsets.all(ds.spacing.s),
@@ -139,7 +139,7 @@ class OptionsWidget extends StatelessWidget {
                             leadingChild ??
                             Icon(
                               leadingIcon!,
-                              color: ds.colors.secondary.shade500,
+                              color: ds.colors.primary.shade900,
                               size: 5 * ds.spacing.xs,
                             ),
                       ),
@@ -152,23 +152,26 @@ class OptionsWidget extends StatelessWidget {
                         if (titleOnTopOfFlagLabel)
                           CustomText(
                             text: title,
-                            style: CustomTextStyle.bodyS,
-                            fontWeight: FontWeight.w500,
+                            style: CustomTextStyle.bodyM,
+                            fontWeight: FontWeight.w600,
                             color: ds.colors.primary.shade900,
                             maxLines: 2,
                           ),
                         if (flagLabel != null)
                           CustomText(
                             text: flagLabel!,
-                            fontSize: 11,
+                            fontSize: 12,
                             fontWeight: FontWeight.w500,
-                            color: ds.colors.shade.shade400,
+                            color:
+                                titleOnTopOfFlagLabel
+                                    ? ds.colors.shade.shade600
+                                    : ds.colors.shade.shade400,
                             maxLines: 2,
                           ),
                         if (!titleOnTopOfFlagLabel)
                           CustomText(
                             text: title,
-                            style: CustomTextStyle.bodyS,
+                            style: CustomTextStyle.bodyM,
                             fontWeight: FontWeight.w500,
                             color: ds.colors.primary.shade900,
                             maxLines: 2,
