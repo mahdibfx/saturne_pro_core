@@ -50,8 +50,9 @@ class CustomSwitchState extends State<CustomSwitch> {
                       widget.onChanged!(value);
                     }
                     : null,
-            inactiveTrackColor: ds.colors.shade.shade50,
-            activeTrackColor: ds.colors.secondary.shade500,
+            // Tellot: navy when on, light grey when off.
+            inactiveTrackColor: ds.colors.shade.shade200,
+            activeTrackColor: ds.colors.primary.shade500,
           ),
         ),
       ),
