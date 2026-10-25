@@ -17,6 +17,9 @@ class Button extends StatelessWidget {
   final Function() onTap;
   final Function()? onLongPress;
 
+  /// Optional leading icon (Tellot: "Copier", "Partager").
+  final IconData? icon;
+
   const Button.filled({
     super.key,
     this.type = ButtonType.filled,
@@ -27,6 +30,7 @@ class Button extends StatelessWidget {
     required this.onTap,
     this.isDisabled = false,
     this.onLongPress,
+    this.icon,
   }) : assert(
          backgroundColor != null,
          'Filled button requires a background gradient',
@@ -47,6 +51,7 @@ class Button extends StatelessWidget {
     required this.onTap,
     this.isDisabled = false,
     this.onLongPress,
+    this.icon,
   }) : assert(
          labelColor != null,
          'Outlined button requires a label color for both text and border',
@@ -70,6 +75,7 @@ class Button extends StatelessWidget {
     required this.onTap,
     this.isDisabled = false,
     this.onLongPress,
+    this.icon,
   }) : assert(labelColor != null, 'Plain button requires a label color'),
        assert(
          type == ButtonType.plain,
@@ -142,7 +148,10 @@ class Button extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: expand ? MainAxisSize.max : MainAxisSize.min,
+                    spacing: ds.spacing.s,
                     children: [
+                      if (icon != null)
+                        Icon(icon, size: 5 * ds.spacing.xs, color: labelColor),
                       Flexible(
                         child: CustomText(
                           text: label,
