@@ -58,6 +58,10 @@ class CustomCalendar extends StatelessWidget {
   /// Whether the calendar is enabled for interaction.
   final bool isEnabled;
 
+  /// Card fill and outline (Tellot's white bordered calendar).
+  final Color? backgroundColor;
+  final Border? border;
+
   /// Creates a [CustomCalendar] widget.
   const CustomCalendar({
     super.key,
@@ -72,6 +76,8 @@ class CustomCalendar extends StatelessWidget {
     this.firstDate,
     this.lastDate,
     this.isEnabled = true,
+    this.backgroundColor,
+    this.border,
   }) : assert(
          selectionType != CalendarSelectionType.single ||
              (onDateRangeSelected == null && onMultipleDatesSelected == null),
@@ -236,6 +242,8 @@ class CustomCalendar extends StatelessWidget {
 
     return CustomCard(
       padding: EdgeInsets.all(ds.spacing.xs),
+      backgroundColor: backgroundColor,
+      border: border,
       child: CalendarDatePicker2(
         config: _buildCalendarConfig(ds),
         value: _getInitialValue(),

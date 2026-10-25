@@ -32,6 +32,9 @@ class CustomCard extends StatelessWidget {
   /// If not provided, no border will be shown.
   final Border? border;
 
+  /// Fill; the light primary tint when null.
+  final Color? backgroundColor;
+
   /// Creates a [CustomCard] widget.
   ///
   /// The [child] parameter is required and represents the content of the card.
@@ -44,6 +47,7 @@ class CustomCard extends StatelessWidget {
     required this.child,
     this.isFullWidth = true,
     this.border,
+    this.backgroundColor,
   });
 
   @override
@@ -53,7 +57,7 @@ class CustomCard extends StatelessWidget {
       width: isFullWidth ? double.infinity : null,
       padding: padding ?? EdgeInsets.all(ds.spacing.s),
       decoration: BoxDecoration(
-        color: ds.colors.primary.shade50,
+        color: backgroundColor ?? ds.colors.primary.shade50,
         borderRadius: ds.borderRadii.radiusS,
         border: border,
       ),
